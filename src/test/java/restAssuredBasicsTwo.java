@@ -42,13 +42,13 @@ public class restAssuredBasicsTwo {
 
         // არ ვიცი მოკლედ, რაც მოვიძიე, არც ერთი არ მოერგო ამ ქეისს
         RequestSpecification req = given()
-     //   .header("Authorization", authToken)
+       .header("Authorization", authToken)
                 .header("Content-Type", "application/json")
                    .body(requestParams);
 
 //        Response response =
 //                given()
-//                        .spec(request)
+//                        .spec(req)
 //                        .contentType(ContentType.JSON)
 //                        .put("https://restful-booker.herokuapp.com/booking/id[0]");
 //        response.then()
