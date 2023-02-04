@@ -19,7 +19,6 @@ import static io.restassured.RestAssured.given;
 public class restAssuredBasicsTwo {
     @Test
     public void updateTest() {
-        RestAssured.baseURI = "https://restful-booker.herokuapp.com/auth";
         RequestSpecification request = RestAssured.given();
         String payLoad = "{\n" +
                 "    \"username\" : \"admin\",\n" +
@@ -41,9 +40,9 @@ public class restAssuredBasicsTwo {
         requestParams.put("checkout", "2016-04-04");
         requestParams.put("additionalneeds", "Dinner");
 
-
+        // არ ვიცი მოკლედ, რაც მოვიძიე, არც ერთი არ მოერგო ამ ქეისს
         RequestSpecification req = given()
-        .header("Authorization", authToken)
+     //   .header("Authorization", authToken)
                 .header("Content-Type", "application/json")
                    .body(requestParams);
 
