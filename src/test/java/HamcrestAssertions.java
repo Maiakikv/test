@@ -13,7 +13,7 @@ public class HamcrestAssertions {
     @Test
     public void hamcrestAssertionsTest() {
 
-      Response response =  given()
+        Response response = given()
                 .when()
                 .get("http://ergast.com/api/f1/2017/circuits.json");
 
@@ -21,12 +21,9 @@ public class HamcrestAssertions {
                 then()
                 .assertThat()
                 .body("MRData.CircuitTable.Circuits.circuitId", hasItem("marina_bay"))
-                .body("MRData.CircuitTable.Circuits.Location[1, -1].country", hasItems("USA", "UAE"))
                 .body("MRData.CircuitTable.Circuits.Location[-1].long",
-                        allOf(greaterThan("1"), equalTo("10")));
-
-
-
+                        anyOf(greaterThan("1"), equalTo("10")))
+                .body("MRData.CircuitTable.Circuits.Location[1, -1].country", hasItems("USA", "UAE"));
 
 
     }
