@@ -45,7 +45,7 @@ public class Test {
         response.then().statusCode(200)
                 .assertThat()
                 .body("Envelope.Body.FindPersonResponse.FindPersonResult.Home.Street", equalTo(Constants.homeStreet));
-        response.then().statusCode(200)
+        response.then()
                 .assertThat()
                 .body("Envelope.Body.FindPersonResponse.FindPersonResult.Office.Zip", equalTo(Integer.toString(Constants.officeZip)));
 
