@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class Test {
     @org.testng.annotations.Test
-    void sampleTest() {
+    void countriesTest() {
         RestAssured.baseURI = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfContinentsByName";
         NodeChildrenImpl countryName = RestAssured.given().when()
                 .get("")
@@ -34,7 +34,7 @@ public class Test {
 
 
     @org.testng.annotations.Test
-    public void test() throws IOException {
+    public void personTest() throws IOException {
         Response response = RestAssured
                 .given()
                 .baseUri("https://www.crcind.com/csp/samples/SOAP.Demo.CLS")
