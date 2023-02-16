@@ -1,58 +1,54 @@
-import Data.Constants;
-import Data.FilePathString;
-import io.restassured.RestAssured;
-import io.restassured.internal.path.xml.NodeChildrenImpl;
+import Data.request.Authorization;
+import Data.request.CreateToken;
+import Data.request.CreateUserRequest;
+import Data.response.AuthorizeResponse;
+import Data.response.CreatedUserResponse;
+import Data.response.Token;
+import Steps.StepClass;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import java.io.IOException;
-
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
-
 
 public class Test {
-    @org.testng.annotations.Test
-    void countriesTest() {
-        RestAssured.baseURI = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfContinentsByName";
-        NodeChildrenImpl countryName = RestAssured.given().when()
-                .get("")
-                .then().extract().path("ArrayOftContinent.tContinent.sName");
-        Assert.assertEquals(countryName.size(), Constants.sname.size());
-        Assert.assertEquals(countryName, Constants.sname);
-        String lastName = String.valueOf(countryName.get(countryName.size() - 1));
-        Assert.assertEquals(lastName, Constants.sname.get(Constants.sname.size() - 1));
-
-        String sCodeEqualtoAN = given().when()
-                .get("")
-                .then().extract().path("**.find { it.sCode == 'AN' }.sName");
-        Assert.assertEquals(sCodeEqualtoAN, Constants.antarctica);
-
-
-
-    }
-
+    StepClass step = new StepClass();
+    ObjectMapper mapper = new ObjectMapper();
 
     @org.testng.annotations.Test
-    public void personTest() throws IOException {
-        Response response = RestAssured
-                .given()
-                .baseUri("https://www.crcind.com/csp/samples/SOAP.Demo.CLS")
-                .header("SOAPAction", "http://tempuri.org/SOAP.Demo.FindPerson")
-                .header("Content-Type", "text/xml; charset=utf-8")
-                .body(FilePathString.myRequest)
-                .post();
-        response.then().statusCode(200)
-                .assertThat()
-                .body("Envelope.Body.FindPersonResponse.FindPersonResult.Home.Street", equalTo(Constants.homeStreet));
-        response.then()
-                .assertThat()
-                .body("Envelope.Body.FindPersonResponse.FindPersonResult.Office.Zip", equalTo(Integer.toString(Constants.officeZip)));
-
+    public void createUserTest() throws JsonProcessingException {
+        CreateUserRequest createUserRequest = new CreateUserRequest("maia", "Maia@1245125");
+        String body = mapper.writeValueAsString(createUserRequest);
+        Response response = step.createUserStep(body);
         response.prettyPrint();
+        CreatedUserResponse e = response.body().as(CreatedUserResponse.class);
+        Assert.assertEquals(e.books().size(), 0);
 
 
     }
 
+    @org.testng.annotations.Test
+    public void createTokenTest() throws JsonProcessingException {
+        CreateToken createToken = new CreateToken("maia", "Maia@1234");
+        String body = mapper.writeValueAsString(createToken);
+        Response response = step.createTokentep(body);
+        Token token = response.body().as(Token.class);
+        Assert.assertEquals(token.status(), "Success");
+        Assert.assertEquals(token.result(), "User authorized successfully.");
+
+
+    }
+
+    @org.testng.annotations.Test
+    public void authTest() throws JsonProcessingException {
+        Authorization auth = new Authorization("TOOLSQA-Test", "Test@@123");
+        String body = mapper.writeValueAsString(auth);
+        Response response = step.Authorize(body);
+  //      response.then().assertThat().body(is(String.valueOf(true)));
+
+        AuthorizeResponse authorizeResponse = new AuthorizeResponse(true);
+        Assert.assertEquals(String.valueOf(authorizeResponse.auth()), response.asString());
+
+
+    }
 
 }
