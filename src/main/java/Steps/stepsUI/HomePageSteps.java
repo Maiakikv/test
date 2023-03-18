@@ -7,25 +7,24 @@ import io.qameta.allure.Step;
 public class HomePageSteps {
     HomePage homePage = new HomePage();
 
-    @Step("set username")
-    public HomePageSteps setUsertName (String userName){
+    @Step("Set username")
+    public HomePageSteps setUserName(String userName){
         homePage.userName.sendKeys(userName);
     return this;
     }
-    @Step("set password")
+    @Step("Set password")
     public HomePageSteps setPassword (String password){
         homePage.password.sendKeys(password);
         return this;
     }
-    @Step("click on login")
+    @Step("Click on login")
     public HomePageSteps clickOnLoginBtn (){
         homePage.login.click();
         return this;
     }
-    @Step("validate error message")
+    @Step("Validate error message")
     public HomePageSteps errorTextValidation (String errorText){
-        homePage.errorTextMessage.shouldHave(Condition.text(errorText));
-    //    Assert.assertTrue(homePage.errorTextMessage.getText().contains(errorText));
+        homePage.errorOutput.shouldHave(Condition.text(errorText));
         return this;
     }
 

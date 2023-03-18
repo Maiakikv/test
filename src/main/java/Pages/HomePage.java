@@ -8,6 +8,6 @@ public class HomePage {
     public SelenideElement userName = $("#userName"),
             password = $("#password"),
             login = $("#login"),
-            errorTextMessage = $(".mb-1");
+            errorOutput = $("#output");
 
 }
