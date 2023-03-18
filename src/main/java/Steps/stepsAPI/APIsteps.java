@@ -6,7 +6,7 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class StepClass {
+public class APIsteps {
     @Step("create user")
     public Response createUserStep(String body) {
         Response response = RestAssured.given()
@@ -27,7 +27,8 @@ public class StepClass {
                 .post(EndPoint.BASEURL + "/Account/v1/Authorized");
         return response;
     }
-//
+// ეს თუ იცით, სტეპში რა სახით შეიძლება იყოს
+
 //    @Step("Authorize with deleted credentials")
 //    public void validateResponseMessage(String responseText) {
 //        ErrorAuthorizeResponse errorAuthorizeResponse = response.body().as(ErrorAuthorizeResponse.class);

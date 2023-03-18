@@ -1,8 +1,8 @@
 package Steps.stepsUI;
 
 import Pages.HomePage;
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import org.testng.Assert;
 
 public class HomePageSteps {
     HomePage homePage = new HomePage();
@@ -24,7 +24,8 @@ public class HomePageSteps {
     }
     @Step("validate error message")
     public HomePageSteps errorTextValidation (String errorText){
-        Assert.assertTrue(homePage.errorTextMessage.getText().contains(errorText));
+        homePage.errorTextMessage.shouldHave(Condition.text(errorText));
+    //    Assert.assertTrue(homePage.errorTextMessage.getText().contains(errorText));
         return this;
     }
 
